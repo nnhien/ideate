@@ -1,5 +1,5 @@
 import { EditorProps } from "@props/EditorProps";
-import { headingsPlugin, MDXEditor, MDXEditorMethods } from "@mdxeditor/editor";
+import { headingsPlugin, markdownShortcutPlugin, MDXEditor, MDXEditorMethods } from "@mdxeditor/editor";
 
 import "@mdxeditor/editor/style.css"
 import { ElectronWindow } from "@props/ElectronProps";
@@ -16,6 +16,6 @@ export function Editor(props: EditorProps) {
     return <MDXEditor 
             ref={mdxRef}
             markdown={""}
-            plugins={[headingsPlugin()]}
+            plugins={[headingsPlugin(), markdownShortcutPlugin()]}
         />
 }
