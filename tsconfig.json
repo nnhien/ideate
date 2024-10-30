@@ -15,6 +15,7 @@
     "paths": {
       "*": ["node_modules/*"],
       "@components/*": ["src/components/*"],
+      "@props/*": ["src/props/*"]
     }
   },
   "include": ["src/**/*"]
