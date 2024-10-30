@@ -3,7 +3,6 @@ import type { Configuration } from 'webpack';
 import { rules } from './webpack.rules';
 import { plugins } from './webpack.plugins';
 
-const path = require('path');
 
 export const mainConfig: Configuration = {
   /**
@@ -18,8 +17,5 @@ export const mainConfig: Configuration = {
   plugins,
   resolve: {
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.css', '.json'],
-    alias: {
-      "@components": path.resolve(__dirname, "src/components")
-    }
   },
 };
