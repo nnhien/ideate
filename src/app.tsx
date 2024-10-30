@@ -1,8 +1,9 @@
+import { Editor } from '@components/Editor';
 import { createRoot } from 'react-dom/client';
 
 function App() {
     return (
-        <h2>Hello from React!</h2>
+        <Editor />
     );
 }
 
