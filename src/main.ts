@@ -60,7 +60,6 @@ app.on('activate', () => {
 // code. You can also put them in separate files and import them here.
 async function handleFSOpen(_event: any, path: any) {
   fs.readFile(path, 'utf8', (error, data) => {
-    console.log("read file! sending now");
     window.webContents.send('fs:ready', data);
   })
 }
