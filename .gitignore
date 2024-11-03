@@ -93,3 +93,4 @@ out/
 
 # Dev
 docs/
+.venv/
