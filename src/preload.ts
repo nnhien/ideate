@@ -8,7 +8,7 @@ contextBridge.exposeInMainWorld('electron', {
     onDocReady: (callback: (data: Buffer) => void) => 
         ipcRenderer.on('doc:ready', (_event, data: Buffer) => callback(data)),
 
-    pythonIndex: () => ipcRenderer.send('python:index'),
+    pythonLoadGraph: () => ipcRenderer.send('python:loadGraph'),
     onPythonGraphReady: (callback: (graph: any) => void) =>
         ipcRenderer.on('python:graphReady', (_event, graph: any) => callback(graph))
 });

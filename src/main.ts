@@ -47,7 +47,7 @@ const createWindow = (): void => {
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
   ipcMain.on('doc:open', handleDocOpen);
-  ipcMain.on('python:index', pythonIndex);
+  ipcMain.on('python:loadGraph', pythonLoadGraph);
   createWindow();
 });
 
@@ -76,12 +76,13 @@ async function handleDocOpen(_event: any, path: any) {
   })
 }
 
-async function pythonIndex(_event: any) {
+async function pythonLoadGraph(_event: any) {
   const options: Options = {
     mode: 'text',
     pythonPath: '/Users/nnhien/src/ideate/.venv/bin/python',
   };
-  const results = await PythonShell.run('/Users/nnhien/src/ideate/src/python/index.py', options);
-
-  window.webContents.send('python:graphReady', JSON.parse(results as unknown as string));
+  PythonShell.run('/Users/nnhien/src/ideate/src/python/index.py', options)
+    .then(results => {
+      window.webContents.send('python:graphReady', JSON.parse(results as unknown as string));
+    });  
 }

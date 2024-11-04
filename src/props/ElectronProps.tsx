@@ -5,6 +5,6 @@ export interface ElectronWindow extends Window {
 interface ElectronAPI {
     openDoc: (path: string) => void
     onDocReady: (callback: (data: string) => void) => void
-    pythonIndex: () => void
+    pythonLoadGraph: () => void
     onPythonGraphReady: (callback: (graph: any) => void) => void
 }

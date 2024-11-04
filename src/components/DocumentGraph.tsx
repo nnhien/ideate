@@ -28,7 +28,7 @@ export function DocumentGraph() {
         sigma.current = new Sigma(graph, containerRef.current);
         // layout.current.start();
 
-        eWindow.electron.pythonIndex();
+        eWindow.electron.pythonLoadGraph();
 
         sigma.current.on("downNode", (e) => {
             draggedNode = e.node;
