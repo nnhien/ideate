@@ -26,7 +26,6 @@ export function DocumentGraph() {
 
     useEffect(() => {
         sigma.current = new Sigma(graph, containerRef.current);
-        // layout.current.start();
 
         eWindow.electron.pythonLoadGraph();
 
