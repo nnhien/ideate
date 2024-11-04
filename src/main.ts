@@ -46,7 +46,7 @@ const createWindow = (): void => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
-  ipcMain.on('fs:open', handleFSOpen);
+  ipcMain.on('doc:open', handleDocOpen);
   ipcMain.on('python:index', pythonIndex);
   createWindow();
 });
@@ -70,15 +70,13 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
-async function handleFSOpen(_event: any, path: any) {
+async function handleDocOpen(_event: any, path: any) {
   fs.readFile(path, 'utf8', (error, data) => {
-    window.webContents.send('fs:ready', data);
+    window.webContents.send('doc:ready', data);
   })
 }
 
 async function pythonIndex(_event: any) {
-  console.log("attempting to call script!")
-
   const options: Options = {
     mode: 'text',
     pythonPath: '/Users/nnhien/src/ideate/.venv/bin/python',

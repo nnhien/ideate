@@ -31,6 +31,6 @@ import './app';
 import { ElectronWindow } from '@props/ElectronProps';
 
 const eWindow = window as unknown as ElectronWindow
-eWindow.electron.openFile("/Users/nnhien/src/ideate/docs/test.md")
+eWindow.electron.openDoc("/Users/nnhien/src/ideate/docs/test.md")
 
 console.log('👋 This message is being logged by "renderer.js", included via webpack');
