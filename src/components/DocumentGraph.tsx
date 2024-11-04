@@ -1,6 +1,7 @@
 import { ElectronWindow } from "@props/ElectronProps";
 import Graph from "graphology";
 import ForceSupervisor from "graphology-layout-force/worker";
+import circlepack from "graphology-layout/circlepack";
 import { useEffect, useRef, useState } from "react";
 import Sigma from "sigma";
 
@@ -12,9 +13,10 @@ export function DocumentGraph() {
     const layout = useRef(new ForceSupervisor(graph, 
         {   isNodeFixed: (_, attr) => attr.highlighted,
             settings: {
-                attraction: 0.1,
+                attraction: 0.015,
                 repulsion: 0.0001,
-                gravity: 0.05
+                gravity: 0.05,
+                inertia: 0.35
             }
         }
     ));
@@ -24,7 +26,7 @@ export function DocumentGraph() {
 
     useEffect(() => {
         sigma.current = new Sigma(graph, containerRef.current);
-        layout.current.start();
+        // layout.current.start();
 
         eWindow.electron.pythonIndex();
 
@@ -65,12 +67,15 @@ export function DocumentGraph() {
 
     eWindow.electron.onPythonGraphReady(documentGraph => {
         Object.keys(documentGraph).forEach(docID => {
-            graph.addNode(docID, {x: Math.random(), y: Math.random(), size: 8, label: docID});
+            graph.addNode(docID, {x:0, y:0, size: 8, label: docID});
         });
         Object.keys(documentGraph).forEach(docID => {
             (documentGraph[docID] as string[])
                 .forEach(neighbor => graph.addEdge(docID, neighbor));
         });
+
+        circlepack.assign(graph);
+        layout.current.start();
     });
 
     return <div ref={containerRef} style={{height: "100%", width: "100%"}} />
