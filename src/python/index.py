@@ -1,4 +1,5 @@
 import os
+import json
 
 import chromadb
 import numpy as np
@@ -24,6 +25,8 @@ similarities = np.delete(similarities, 0, 1)
 
 cutoff = np.quantile(similarities, 0.70)
 
+graph = {}
+
 for i, matched_ids in enumerate(results['ids']):
     doc_id = matched_ids[0]
     matched_ids = np.array(matched_ids)[1:]
@@ -31,4 +34,6 @@ for i, matched_ids in enumerate(results['ids']):
     similarities = np.where(similarities >= cutoff, similarities, 0)
     edges = np.nonzero(similarities)
 
-    print(f'{doc_id}: {matched_ids[edges]} {similarities[edges]}')
+    graph[doc_id] = matched_ids[edges].tolist()
+
+print(json.dumps(graph))

@@ -3,11 +3,11 @@ import { headingsPlugin, markdownShortcutPlugin, MDXEditor, MDXEditorMethods } f
 
 import "@mdxeditor/editor/style.css"
 import { ElectronWindow } from "@props/ElectronProps";
-import React from "react";
+import { useRef } from "react";
 
 export function Editor(props: EditorProps) {
     const eWindow: ElectronWindow = window as unknown as ElectronWindow;
-    const mdxRef = React.useRef<MDXEditorMethods>(null);
+    const mdxRef = useRef<MDXEditorMethods>(null);
     
     eWindow.electron.onFSReady((contents: string) => {
         mdxRef.current.setMarkdown(contents);

@@ -1,11 +1,9 @@
-import { Editor } from '@components/Editor';
-import { ElectronWindow } from '@props/ElectronProps';
-import { useState } from 'react';
+import { DocumentGraph } from '@components/DocumentGraph';
 import { createRoot } from 'react-dom/client';
 
 function App() {
     return (
-        <Editor />
+        <DocumentGraph />
     );
 }
 

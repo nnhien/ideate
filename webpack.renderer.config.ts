@@ -19,7 +19,8 @@ export const rendererConfig: Configuration = {
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.css'],
     alias: {
       "@components": path.resolve(__dirname, "src/components"),
-      "@props": path.resolve(__dirname, "src/props")
-    }
+      "@props": path.resolve(__dirname, "src/props"),
+      'graphology-layout-forceatlas2/worker': 'graphology-layout-forceatlas2/worker.js'
+    },
   },
 };

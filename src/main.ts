@@ -1,4 +1,5 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain, session } from 'electron';
+import { Options, PythonShell } from 'python-shell'
 
 import fs from 'fs'
 
@@ -23,6 +24,16 @@ const createWindow = (): void => {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
   });
+  session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+    callback({
+        responseHeaders: {
+            ...details.responseHeaders,
+            'Content-Security-Policy': [
+                'worker-src \'self\' blob:;'
+            ]
+        }
+    })
+})
 
   // and load the index.html of the app.
   window.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
@@ -36,6 +47,7 @@ const createWindow = (): void => {
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
   ipcMain.on('fs:open', handleFSOpen);
+  ipcMain.on('python:index', pythonIndex);
   createWindow();
 });
 
@@ -62,4 +74,16 @@ async function handleFSOpen(_event: any, path: any) {
   fs.readFile(path, 'utf8', (error, data) => {
     window.webContents.send('fs:ready', data);
   })
+}
+
+async function pythonIndex(_event: any) {
+  console.log("attempting to call script!")
+
+  const options: Options = {
+    mode: 'text',
+    pythonPath: '/Users/nnhien/src/ideate/.venv/bin/python',
+  };
+  const results = await PythonShell.run('/Users/nnhien/src/ideate/src/python/index.py', options);
+
+  window.webContents.send('python:graphReady', JSON.parse(results as unknown as string));
 }

@@ -5,4 +5,6 @@ export interface ElectronWindow extends Window {
 interface ElectronAPI {
     openFile: (path: string) => void
     onFSReady: (callback: (data: string) => void) => void
+    pythonIndex: () => void
+    onPythonGraphReady: (callback: (graph: any) => void) => void
 }
